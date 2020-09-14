@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link rel="stylesheet" href="bookCSS.css" />
+    <script src="/lib/angular.min.js"></script>
+</head>
+<body ng-app="book_app" ng-controller="book_controller">
+<h1>Библиотека</h1>
+    <div class='books-div' >
+
+        <div ng-repeat="book in books" class='book'>
+            <img ng-src='/covers/{{book.cover_file}}' /> <br/>
+
+            <table>
+                <tr> <td><i>Название: </i></td> <td>{{book.title}}</td> </tr>
+                <tr> <td><i>Автор: </i></td> <td>{{book.name}}</td> </tr>
+                <tr> <td><i>Год: </i></td> <td>{{book.year}}</td> </tr>
+                <tr> <td><i>Кол-во страниц: </i></td> <td>{{book.pages}}</td> </tr>
+            </table>
+
+            <b>{{book.price}}</b><span> грн.</span>
+        </div>
+
+        <br/><br/>
+        <input class="load-books-btn" type="button" ng-click="loadBooks()" value="Загрузить еще книги"/>
+        <br/><br/><br/>
+    </div>
+
+
+<script>
+/*
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = () => {
+        if(x.readyState == 4){
+            console.log(x.responseText);
+        }
+    }
+    x.open("GET", "/api/books", true);
+    x.send();
+
+ */
+    var bookPart = 1;
+    var BookApp = angular
+        .module("book_app", []); // Создание(инициализация) модуля
+    BookApp.controller("book_controller", ($scope, $http) =>   // Инициализация контроллера(конструктор класса)
+    {
+        $scope.books = [];
+
+        loadPartBooks(bookPart++);
+
+        $scope.loadBooks = () => {
+            loadPartBooks(bookPart++);
+        }
+
+        function loadPartBooks(part) {
+            /*
+            $http.get('/api/books').then(response => {
+                $scope.books = $scope.books.concat(response.data);
+                console.log($scope.books);
+            });
+            */
+
+            $http.get('/api/books/' + part).then(response => {
+                $scope.books = $scope.books.concat(response.data);
+            });
+        }
+
+    /*
+    // Воспользовались не средствами Angular, поэтому данные на экране не появляются
+        fetch('/api/books').then(r => r.json()).then(data => {
+            $scope.books = $scope.books.concat(data);
+            console.log($scope.books);
+        });
+
+    */
+
+    });
+
+</script>
+</body>
+</html>

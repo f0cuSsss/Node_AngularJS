@@ -1,0 +1,8 @@
+{
+  "host":       "localhost",
+  "port":       "3306",
+  "user":       "db_js_user",
+  "password":   "db_js_pass",
+  "database":   "db_js",
+  "charset":    "utf8"
+}

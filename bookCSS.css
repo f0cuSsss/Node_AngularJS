@@ -1,0 +1,41 @@
+h1{
+    text-align: center;
+}
+
+.book {
+    border: 1px solid black;
+    border-radius: 7px;
+    display: inline-block;
+    height: 300px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 300px;
+
+    overflow: hidden;
+}
+
+.book:hover{
+    background-color: aliceblue;
+    transition: 1s;
+    transition-delay: 0.3s;
+    height: 400px;
+
+}
+
+.book:not(:hover) {
+    transition: 1s;
+}
+
+.book img {
+    max-height: 300px;
+    max-width: 250px;
+}
+
+.load-books-btn{
+    border: none;
+    font-size: 24px;
+    align: center;
+    background-color: transparent;
+}
+
